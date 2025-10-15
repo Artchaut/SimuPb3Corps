@@ -1,5 +1,4 @@
 #include "camera.h"
-#include "glm/detail/qualifier.hpp"
 #include "glm/fwd.hpp"
 #include "glm/geometric.hpp"
 
@@ -41,13 +40,19 @@ auto Camera::processKeyboard(CameraMovement direction) -> void
         cameraPosition += cameraSpeed * cameraDirection;
     }
     if (direction == BACKWARD) {
-        cameraPosition += cameraSpeed * -cameraDirection;
+        cameraPosition -= cameraSpeed * cameraDirection;
     }
     if (direction == LEFT) {
-        cameraPosition += cameraSpeed * -glm::normalize(glm::cross(cameraDirection, cameraUp));
+        cameraPosition -= cameraSpeed * glm::normalize(glm::cross(cameraDirection, cameraUp));
     }
     if (direction == RIGHT) {
         cameraPosition += cameraSpeed * glm::normalize(glm::cross(cameraDirection, cameraUp));
+    }
+    if (direction == UP) {
+        cameraPosition += cameraSpeed * cameraUp;
+    }
+    if (direction == DOWN) {
+        cameraPosition -= cameraSpeed * cameraUp;
     }
 }
 
@@ -60,8 +65,10 @@ auto Camera::getViewMatrix() -> glm::mat4
 
 auto Camera::getProjectionMatrix(float FOV) -> glm::mat4
 {
-    return glm::perspective(FOV, width / (float)height, 0.1f, 100.0f);
+    return glm::perspective(FOV, width / (float)height, 0.1f, 10000.0f);
 }
+
+/*
 
 namespace glm {
 template <length_t T, typename F, qualifier Q>
@@ -76,3 +83,5 @@ class vec {
     }
 };
 }
+
+*/

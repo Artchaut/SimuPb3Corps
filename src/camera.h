@@ -11,7 +11,9 @@ enum CameraMovement {
     FORWARD,
     BACKWARD,
     LEFT,
-    RIGHT
+    RIGHT,
+    UP,
+    DOWN
 };
 
 const float YAW = -90.0f;
@@ -22,8 +24,8 @@ const float SENSITIVITY = 0.1f;
 class Camera {
 private:
     glm::vec3 cameraPosition;
-    glm::vec3 cameraDirection = glm::vec3(0.0f, -4.0f, -2.0f);
-    glm::vec3 cameraUp = glm::vec3(0.0f, 0.0f, 1.0f);
+    glm::vec3 cameraDirection = glm::vec3(0.0f, 0.0f, 1.0f);
+    glm::vec3 cameraUp = glm::vec3(0.0f, -1.0f, 0.0f);
 
     int width, height;
 
